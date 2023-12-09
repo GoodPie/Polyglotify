@@ -2,6 +2,7 @@ import React from 'react'
 import {IoPauseCircle, IoPlayCircle} from "react-icons/io5";
 import {BiSkipNext, BiSkipPrevious, BiVolume, BiVolumeFull} from "react-icons/bi"
 import {Box, Flex, HStack, IconButton, Progress, Text, VStack} from "@chakra-ui/react";
+import './Playback.scss'
 
 
 const ICON_FONT_SIZE = {
@@ -41,7 +42,17 @@ const Playback = ({playBackState, onPlayToggle, songName, artist}) => {
                     <IconButton _hover={{background: "none", fontSize: ICON_FONT_SIZE.hover}} colorScheme={"green"}
                                 variant={"ghost"} fontSize={ICON_FONT_SIZE.default} className='playButton'
                                 icon={<BiSkipNext/>} aria-label={"Next Button"}/>
-
+                </Box>
+                <Box w={'20%'}>
+                    <div className='progress-area'>
+                            <div className='progress-bar'>
+                                <span></span>
+                            </div>
+                            <div className='song-timer'>
+                                <span className='current-time'>0</span>
+                                <span className='current-duration'> 10</span>
+                            </div>
+                    </div>
                 </Box>
 
                 <HStack ms={"auto"}>

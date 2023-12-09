@@ -7,7 +7,6 @@ import {Box, Center, CircularProgress} from "@chakra-ui/react";
 import {IconContext} from "react-icons"
 import {collection, doc, getDoc, getDocs, query, where} from "firebase/firestore";
 
-
 /**
  * Fetch all the music from Firestore collection music
  */
@@ -125,11 +124,13 @@ export const Home = () => {
         });
 
         // Import the sound
-        import (`assets/songs/${lyrics.songDirectory}`);
+        // import (`assets/songs/${lyrics.songDirectory}`);
         if (playBackDetails.isPlaying) {
             audio.pause();
+            console.log(audio.currentTime)
         } else {
             audio.play();
+            console.log(audio.duration)
         }
     }
 

@@ -1,0 +1,43 @@
+.progress-area{
+    height: 6px;
+    width: 100%;
+    border-radius: 50px;
+    background: #f0f0f0;
+    cursor: pointer;
+  }
+  .progress-area .progress-bar{
+    height: inherit;
+    width: 25%;
+    position: relative;
+    border-radius: inherit;
+    background: green;
+  }
+  .progress-bar::before{
+    content: "";
+    position: absolute;
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    top: 50%;
+    right: -5px;
+    z-index: 2;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-50%);
+    background: inherit;
+    transition: opacity 0.2s ease;
+  }
+  .progress-area:hover .progress-bar::before{
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .progress-area .song-timer{
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between ;
+  }
+  .song-timer span{
+    font-size: 13px;
+    color: white;
+  }
