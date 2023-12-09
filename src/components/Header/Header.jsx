@@ -1,17 +1,15 @@
 import React from 'react'
+import {Box} from "@chakra-ui/react";
 
 const Header = () => {
   return (
-    <div>
-      <div>
-       <h2 className='playing'>Playing Now</h2>
-     </div>
 
-      <div>
-        <h3 className='title'>Song Name</h3>
-        <p className='artist'>Artist Name</p>
-      </div>
-    </div>
+      <Box w={"100vw"} background={"black.400"}>
+
+
+      </Box>
+
+
   )
 }
 
