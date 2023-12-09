@@ -1,0 +1,32 @@
+{
+  "hash": "ce7f4041",
+  "browserHash": "6ae4eee5",
+  "optimized": {
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "bb76236c",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "43b4b421",
+      "needsInterop": true
+    },
+    "@chakra-ui/react": {
+      "src": "../../node_modules/@chakra-ui/react/dist/index.mjs",
+      "file": "@chakra-ui_react.js",
+      "fileHash": "143bb488",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-KJUJBIHA": {
+      "file": "chunk-KJUJBIHA.js"
+    },
+    "chunk-W4VDMLRG": {
+      "file": "chunk-W4VDMLRG.js"
+    }
+  }
+}
