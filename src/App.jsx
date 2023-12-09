@@ -5,6 +5,8 @@ import LoginForm from "./Authentication/LoginForm.jsx";
 import ForgotPasswordForm from "./Authentication/ForgotPassword.jsx";
 import {Center} from "@chakra-ui/react";
 import {Register} from "./Authentication/Register.jsx";
+import {Home} from "./Home.jsx";
+import {Logout} from "./Authentication/Logout.jsx";
 
 
 function App() {
@@ -24,6 +26,14 @@ function App() {
                     <Route path="/login/forgot-password" element={<ForgotPasswordForm></ForgotPasswordForm>} />
                     <Route path="/login/register" element={<Register></Register>} />
                 </Route>
+
+                <Route path={"/"} element={<Home></Home>}>
+
+                </Route>
+
+                <Route path="/logout" element={<Logout></Logout>} />
+
+
             </Routes>
         </Router>
     )

@@ -3,9 +3,20 @@ import "./Login.css";
 import {Outlet, useNavigate} from "react-router-dom";
 import React, {useEffect} from "react";
 import AnimatedLoginBackground from "./AnimatedLoginBackground";
+import {useAuthState} from "react-firebase-hooks/auth";
+import {auth} from "../firebase.js";
 
 
 const Login = () => {
+
+
+    const navigate = useNavigate();
+    const [user, loading] = useAuthState(auth);
+
+    useEffect(() => {
+        console.debug("User", user, "Loading", loading)
+        if (user && !loading) return navigate("/");
+    }, [user, navigate, user]);
 
     return (
         <>
