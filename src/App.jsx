@@ -1,35 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import {Route, BrowserRouter as Router, Routes} from "react-router-dom";
+import Login from "./Authentication/Login.jsx";
+import LoginForm from "./Authentication/LoginForm.jsx";
+import ForgotPasswordForm from "./Authentication/ForgotPassword.jsx";
+import {Center} from "@chakra-ui/react";
+import {Register} from "./Authentication/Register.jsx";
+
 
 function App() {
-  const [count, setCount] = useState(0)
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+
+
+
+    return (
+        <Router>
+            <Routes>
+
+                {/*  404 */}
+                <Route path="*" element={<Center h={"100vh"}>404</Center>} />
+
+                <Route path="/login" element={<Login></Login>} >
+                    <Route path="/login/" element={<LoginForm></LoginForm>} />
+                    <Route path="/login/forgot-password" element={<ForgotPasswordForm></ForgotPasswordForm>} />
+                    <Route path="/login/register" element={<Register></Register>} />
+                </Route>
+            </Routes>
+        </Router>
+    )
 }
 
 export default App
