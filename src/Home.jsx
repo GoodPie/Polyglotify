@@ -159,7 +159,7 @@ export const Home = () => {
                     <>
                         {/* <audio src={lyrics.songDirectory}/> */}
                         <LyricDisplay currentTime={currentTime} lyrics={lyrics}/>
-                        <Playback songName={lyrics.song} artist={lyrics.artist} playBackState={playBackDetails}
+                        <Playback nextSong={() => audio.fastSeek(0)} previousSong={() => audio.fastSeek(0)} songName={lyrics.song} artist={lyrics.artist} playBackState={playBackDetails}
                                   onPlayToggle={togglePlayBack} duration={audio.duration} currentTime={currentTime}/>
                     </>
                 }

@@ -10,7 +10,7 @@ const ICON_FONT_SIZE = {
     "hover": "3.2rem"
 }
 
-const Playback = ({playBackState, onPlayToggle, songName, artist, duration, currentTime}) => {
+const Playback = ({playBackState, onPlayToggle, songName, artist, duration, currentTime, previousSong, nextSong}) => {
 
     const calculateTime = (milliseconds) => {
         const mins = Math.floor((milliseconds/1000) / 60);
@@ -41,14 +41,14 @@ const Playback = ({playBackState, onPlayToggle, songName, artist, duration, curr
                 <VStack>
                 <Box>
 
-                    <IconButton _hover={{background: "none", fontSize: ICON_FONT_SIZE.hover}} colorScheme={"green"}
+                    <IconButton onClick={previousSong} _hover={{background: "none", fontSize: ICON_FONT_SIZE.hover}} colorScheme={"green"}
                                 variant={"ghost"} fontSize={ICON_FONT_SIZE.default} className='playButton'
                                 icon={<BiSkipPrevious/>} aria-label={"Previous Button"}/>
                     <IconButton onClick={onPlayToggle} _hover={{background: "none", fontSize: ICON_FONT_SIZE.hover}}
                                 colorScheme={"green"} variant={"ghost"} fontSize={ICON_FONT_SIZE.default}
                                 aria-label={"Play"} className='playButton'
                                 icon={playBackState.isPlaying ? <IoPauseCircle/> : <IoPlayCircle/>}/>
-                    <IconButton _hover={{background: "none", fontSize: ICON_FONT_SIZE.hover}} colorScheme={"green"}
+                    <IconButton onClick={nextSong} _hover={{background: "none", fontSize: ICON_FONT_SIZE.hover}} colorScheme={"green"}
                                 variant={"ghost"} fontSize={ICON_FONT_SIZE.default} className='playButton'
                                 icon={<BiSkipNext/>} aria-label={"Next Button"}/>
                 </Box>
