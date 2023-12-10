@@ -77,7 +77,7 @@ export const Register = () => {
             </Stack>
 
             {/* Login form body */}
-            <Box p={8} bg={"white"}>
+            <Box p={8} >
                 <Stack spacing={4}>
                     {/* Error */}
                     {error && (
