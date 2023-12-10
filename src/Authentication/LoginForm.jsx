@@ -72,7 +72,7 @@ export default function LoginForm() {
     return (<>
 
         {/* Login form heder */}
-        <Stack align={"center"} color={"blackx"}>
+        <Stack align={"center"}>
             <Heading fontSize={"4xl"}>Sign In</Heading>
             <Text fontSize={"lg"}>
                 Sign in to access {APP_NAME}
@@ -92,14 +92,14 @@ export default function LoginForm() {
 
                 {/* Email input */}
                 <FormControl id="email">
-                    <FormLabel color={"black"} htmlFor="email">Email</FormLabel>
-                    <Input border={"black"} color={"black"} type="email" onChange={onEmailChangeListener}/>
+                    <FormLabel htmlFor="email">Email</FormLabel>
+                    <Input type="email" onChange={onEmailChangeListener}/>
                 </FormControl>
 
                 {/* Password input */}
                 <FormControl id="password">
-                    <FormLabel color={"black"} htmlFor="password">Password</FormLabel>
-                    <Input border={"black"} color={"black"} type="password" onChange={onPasswordChangeListener}/>
+                    <FormLabel htmlFor="password">Password</FormLabel>
+                    <Input type="password" onChange={onPasswordChangeListener}/>
                 </FormControl>
             </Stack>
 

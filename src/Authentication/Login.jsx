@@ -24,12 +24,12 @@ const Login = () => {
                 minH={"100vh"}
                 align={"center"}
                 justify={"center"}
-                bg={"gray.50"}
+                bg={useColorModeValue("gray.50", "gray.800")}
             >
                 <Stack
                     boxShadow={"lg"}
                     rounded={"lg"}
-                    backgroundColor={"white"}
+                    bg={useColorModeValue("gray.50", "gray.800")}
                     zIndex={1}
                     spacing={8}
                     mx={"auto"}
