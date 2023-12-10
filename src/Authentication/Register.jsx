@@ -57,7 +57,6 @@ export const Register = () => {
         createUserWithEmailAndPassword(auth, registerState.email, registerState.password)
             .then((userCredential) => {
                 // Navigate to login
-                console.debug("User created successfully", userCredential)
                 navigate("/login/")
             })
             .catch((error) => {
