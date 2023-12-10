@@ -49,7 +49,6 @@ export const Home = () => {
     const [audio, setAudio] = useState(new Audio());
     const [user, loading] = useAuthState(auth);
     const [loadingSongs, setLoadingSongs] = useState(true);
-    const [currTime, setcurrTime] = useState(0);
 
     const [music, setMusic] = useState({});
 
@@ -161,7 +160,7 @@ export const Home = () => {
                         {/* <audio src={lyrics.songDirectory}/> */}
                         <LyricDisplay currentTime={currentTime} lyrics={lyrics}/>
                         <Playback songName={lyrics.song} artist={lyrics.artist} playBackState={playBackDetails}
-                                  onPlayToggle={togglePlayBack} duration={audio.duration} currentTime={currTime}/>
+                                  onPlayToggle={togglePlayBack} duration={audio.duration} currentTime={currentTime}/>
                     </>
                 }
             </Box>
