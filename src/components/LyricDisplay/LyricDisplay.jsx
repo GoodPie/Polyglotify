@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import {Box, HStack, Select, Text, VStack} from "@chakra-ui/react";
 
 
@@ -65,7 +65,7 @@ const LyricDisplay = ({lyrics, onLyricLanguageChange, currentTime}) => {
                                     }
                                     return (
 
-                                        <Text color= {isCurrent ? "green" : isHighlighted ? "green.500" : "white"}  key={index} >
+                                        <Text color= {isCurrent ? "green" : isHighlighted ? "green.500" : "white"}  key={index}>
                                             {convertTimeStringToMilliseconds(line.time) < currentTime ? <span>&#8226;</span> : null}
                                             {line.lyric}
                                         </Text>
