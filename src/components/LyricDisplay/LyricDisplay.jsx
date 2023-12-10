@@ -1,5 +1,6 @@
 import React from 'react'
 import {Box, HStack, Select, Text, VStack} from "@chakra-ui/react";
+import {Lrc} from "react-lrc"
 
 const LyricDisplay = ({lyrics, onLyricLanguageChange}) => {
   return (

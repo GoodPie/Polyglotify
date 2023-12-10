@@ -10,7 +10,7 @@ const ICON_FONT_SIZE = {
     "hover": "3.2rem"
 }
 
-const Playback = ({playBackState, onPlayToggle, songName, artist}) => {
+const Playback = ({playBackState, onPlayToggle, songName, artist, duration, currentTime, progress}) => {
 
     return (
 
@@ -49,8 +49,8 @@ const Playback = ({playBackState, onPlayToggle, songName, artist}) => {
                                 <span></span>
                             </div>
                             <div className='song-timer'>
-                                <span className='current-time'>0</span>
-                                <span className='current-duration'> 10</span>
+                                <span className='current-time'>{currentTime}</span>
+                                <span className='current-duration'>{duration}</span>
                             </div>
                     </div>
                 </Box>

@@ -52,7 +52,6 @@ export const Home = () => {
 
     const [music, setMusic] = useState({});
 
-
     const [lyrics, setLyrics] = useState({
         lyrics: "",
         song: "",
@@ -127,10 +126,8 @@ export const Home = () => {
         // import (`assets/songs/${lyrics.songDirectory}`);
         if (playBackDetails.isPlaying) {
             audio.pause();
-            console.log(audio.currentTime)
         } else {
             audio.play();
-            console.log(audio.duration)
         }
     }
 
@@ -138,6 +135,14 @@ export const Home = () => {
     useEffect(() => {
         if (!user && !loading) return navigate("/Login");
     }, [loading, navigate, user]);
+
+    const calculateTime = (seconds) => {
+        const mins = Math.floor(seconds / 60);
+        const returnedMins = mins < 10 ? `0${mins}` : `${mins}`;
+        const secs = Math.floor(seconds % 60);
+        const returnedSecs = secs < 10 ? `0${secs}` : `${secs}`;
+        return `${returnedMins}:${returnedSecs}`;
+    }
 
 
     return (
@@ -149,14 +154,12 @@ export const Home = () => {
                         <CircularProgress isIndeterminate color={"green.300"} size={"100px"} thickness={"10px"}/>
                     </Center> :
                     <>
-                        <audio src={lyrics.songDirectory}/>
+                        {/* <audio src={lyrics.songDirectory}/> */}
                         <LyricDisplay lyrics={lyrics}/>
                         <Playback songName={lyrics.song} artist={lyrics.artist} playBackState={playBackDetails}
-                                  onPlayToggle={togglePlayBack}/>
+                                  onPlayToggle={togglePlayBack} duration={calculateTime(audio.duration)} currentTime={calculateTime(audio.currentTime)}/>
                     </>
                 }
-
-
             </Box>
         </IconContext.Provider>
 
