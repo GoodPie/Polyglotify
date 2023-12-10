@@ -161,7 +161,7 @@ const LyricDisplay = ({lyrics, onLyricLanguageChange, currentTime}) => {
                                 <Text mb={1} color={"white"}>
                                     Translate To:
                                 </Text>
-                                <Select value={lyrics.translatedLanguage} onChange={lyrics.onChangeLanguage}
+                                <Select color={"black"} value={lyrics.translatedLanguage} onChange={lyrics.onChangeLanguage}
                                         bg={"white"}>
                                     <option value="en">English</option>
                                     <option value="es">Spanish</option>

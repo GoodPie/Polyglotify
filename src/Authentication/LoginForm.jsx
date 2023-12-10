@@ -15,8 +15,8 @@ import {
 import {useState} from "react";
 import {logEvent} from "firebase/analytics";
 import {analytics, auth} from "../firebase";
-import {browserSessionPersistence, setPersistence, signInWithEmailAndPassword} from "firebase/auth";
-import {useNavigate, useNavigation} from "react-router-dom";
+import {signInWithEmailAndPassword} from "firebase/auth";
+import {useNavigate} from "react-router-dom";
 import {APP_NAME} from "../constants.js";
 
 /**
@@ -72,7 +72,7 @@ export default function LoginForm() {
     return (<>
 
         {/* Login form heder */}
-        <Stack align={"center"}>
+        <Stack align={"center"} color={"black"}>
             <Heading fontSize={"4xl"}>Sign In</Heading>
             <Text fontSize={"lg"}>
                 Sign in to access {APP_NAME}
@@ -80,7 +80,7 @@ export default function LoginForm() {
         </Stack>
 
         {/* Login form body */}
-        <Box p={8} bg={useColorModeValue("white", "gray.700")}>
+        <Box p={8} bg={"white"}>
             <Stack spacing={4}>
                 {/* Error */}
                 {error && (

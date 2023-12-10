@@ -14,7 +14,6 @@ const Login = () => {
     const [user, loading] = useAuthState(auth);
 
     useEffect(() => {
-        console.debug("User", user, "Loading", loading)
         if (user && !loading) return navigate("/");
     }, [user, navigate, user]);
 
@@ -25,7 +24,7 @@ const Login = () => {
                 minH={"100vh"}
                 align={"center"}
                 justify={"center"}
-                bg={useColorModeValue("gray.50", "gray.800")}
+                bg={"gray.50"}
             >
                 <Stack
                     boxShadow={"lg"}

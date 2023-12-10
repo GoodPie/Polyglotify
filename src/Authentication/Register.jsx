@@ -78,7 +78,7 @@ export const Register = () => {
             </Stack>
 
             {/* Login form body */}
-            <Box p={8} bg={useColorModeValue("white", "gray.700")}>
+            <Box p={8} bg={"white"}>
                 <Stack spacing={4}>
                     {/* Error */}
                     {error && (
