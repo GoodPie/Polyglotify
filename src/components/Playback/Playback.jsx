@@ -53,12 +53,12 @@ const Playback = ({playBackState, onPlayToggle, songName, artist, duration, curr
                 </Box>
                 <Box w={'20%'}>
                     <div className='progress-area'>
-                            <div className='progress-bar'>
+                            <div className='progress-bar' style={{width:`${currentTime / (duration*1000) * 100}%`}}>
                                 <span></span>
                             </div>
                             <div className='song-timer'>
                                 <span className='current-time'>{calculateTime(currentTime)}</span>
-                                <span className='current-duration'>{calculateTime(duration)}</span>
+                                <span className='current-duration'>{!isNaN(duration) && calculateTime(duration*1000)}</span>
                             </div>
                     </div>
                 </Box>
