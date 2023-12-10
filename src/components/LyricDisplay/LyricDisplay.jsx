@@ -1,5 +1,6 @@
-import React, {useEffect, useState, useRef} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {Box, HStack, Select, Text, VStack} from "@chakra-ui/react";
+import {m} from "framer-motion";
 
 
 const formatLyrics = (lyrics) => {
@@ -23,8 +24,12 @@ const formatLyrics = (lyrics) => {
 
 const convertTimeStringToMilliseconds = (timeString) => {
 
+
+
     // Timestring will be formatted as 00:00.00
     const [minutes, seconds] = timeString.split(":");
+
+    if (!minutes || !seconds) return 0;
     const [secondsWithoutDecimal, milliseconds] = seconds.split(".");
     const totalMilliseconds = (parseInt(minutes) * 60 * 1000) + (parseInt(secondsWithoutDecimal) * 1000) + parseInt(milliseconds);
     return totalMilliseconds;
@@ -33,8 +38,78 @@ const convertTimeStringToMilliseconds = (timeString) => {
 
 const LyricDisplay = ({lyrics, onLyricLanguageChange, currentTime}) => {
 
+    const [currentBaseLyricState, setCurrentBaseLyricState] = useState({
+        lyric: null,
+        time: null,
+        currentIndex: 0
+    });
+    const [currentTranslatedLyricState, setCurrentTranslatedLyricState] = useState({
+        lyric: null,
+        time: null,
+        currentIndex: 0
+    });
+
+
     const [formattedLyrics, setFormattedLyrics] = useState([]);
     const [formattedTranslatedLyrics, setFormattedTranslatedLyrics] = useState([]);
+
+    const currentLyricRef = useRef(null);
+    const currentTranslatedLyricRef = useRef(null);
+
+    useEffect(() => {
+        // Calculate the current lyric based on currentTime
+        // and update currentLyric state
+        const currentLyricIndex = formattedLyrics.findIndex((line, index) => {
+            if (index < 3 || !line.time) return false;
+            if (!line.time) return false;
+            const lineTime = convertTimeStringToMilliseconds(line.time);
+            const nextLineTime = formattedLyrics[index + 1] ? convertTimeStringToMilliseconds(formattedLyrics[index + 1].time) : Infinity;
+            return lineTime <= currentTime && nextLineTime > currentTime;
+        });
+        if (currentLyricIndex !== -1) {
+
+            // Define the new current lyrci index
+            const newCurrentLyric = formattedLyrics[currentLyricIndex];
+            setCurrentBaseLyricState({
+                lyric: newCurrentLyric.lyric,
+                time: newCurrentLyric.time,
+                currentIndex: currentLyricIndex
+            });
+
+        }
+    }, [currentTime, formattedLyrics]);
+
+    useEffect(() => {
+        // Calculate the current lyric based on currentTime
+        // and update currentLyric state
+        const currentLyricIndex = formattedTranslatedLyrics.findIndex((line, index) => {
+            if (index < 3 || !line.time) return false;
+            if (!line.time) return false;
+            const lineTime = convertTimeStringToMilliseconds(line.time);
+            const nextLineTime = formattedTranslatedLyrics[index + 1] ? convertTimeStringToMilliseconds(formattedLyrics[index + 1].time) : Infinity;
+            return lineTime <= currentTime && nextLineTime > currentTime;
+        });
+        if (currentLyricIndex !== -1) {
+            const newCurrentLyric = formattedTranslatedLyrics[currentLyricIndex];
+            setCurrentTranslatedLyricState({
+                lyric: newCurrentLyric.lyric,
+                time: newCurrentLyric.time,
+                currentIndex: currentLyricIndex
+            });
+        }
+    }, [currentTime, formattedLyrics]);
+
+
+    useEffect(() => {
+        console.debug("Current Lyric", currentLyricRef?.current, "Current Translated Lyric", currentTranslatedLyricRef?.current)
+        if (currentLyricRef?.current) {
+            currentLyricRef.current.scrollIntoView({behavior: 'smooth'});
+        }
+
+        if (currentTranslatedLyricRef?.current) {
+            currentTranslatedLyricRef.current.scrollIntoView({behavior: 'smooth'});
+        }
+    }, [currentBaseLyricState, currentTranslatedLyricState]);
 
     useEffect(() => {
         setFormattedLyrics(formatLyrics(lyrics.lyrics));
@@ -54,19 +129,15 @@ const LyricDisplay = ({lyrics, onLyricLanguageChange, currentTime}) => {
                         </VStack>
                         <VStack p={12} fontSize={"2rem"} alignItems={"start"}>
                             {formattedLyrics.map((line, index) => {
-                                    if (index < 3 || !line.time) return; // Skip metadata
 
                                     const isHighlighted = convertTimeStringToMilliseconds(line.time) < currentTime;
-                                    let isCurrent = false;
-                                    if (lyrics.lyrics[index + 1] && lyrics.lyrics[index + 1].time) {
-                                        console.debug("Next Time", lyrics.lyrics[index + 1].time)
-                                        const nextTime = convertTimeStringToMilliseconds(lyrics.lyrics[index + 1].time);
-                                        isCurrent = convertTimeStringToMilliseconds(line.time) <= currentTime && nextTime >= currentTime;
-                                    }
                                     return (
 
-                                        <Text color= {isCurrent ? "green" : isHighlighted ? "green.500" : "white"}  key={index}>
-                                            {convertTimeStringToMilliseconds(line.time) < currentTime ? <span>&#8226;</span> : null}
+                                        <Text ref={currentBaseLyricState.currentIndex === index ? currentLyricRef : null}
+                                              color={currentBaseLyricState.currentIndex === index  ? "green.500" : isHighlighted ? "green.700" : "white"}
+                                              key={index}>
+                                            {convertTimeStringToMilliseconds(line.time) < currentTime ?
+                                                <span>&#8226;</span> : null}
                                             {line.lyric}
                                         </Text>
                                     )
@@ -101,21 +172,17 @@ const LyricDisplay = ({lyrics, onLyricLanguageChange, currentTime}) => {
 
                         </VStack>
 
-                        <VStack  p={12} fontSize={"2rem"} alignItems={lyrics.translatedLanguage === "ar" ? "end" : "start"}>
+                        <VStack p={12} fontSize={"2rem"}
+                                alignItems={lyrics.translatedLanguage === "ar" ? "end" : "start"}>
                             {formattedTranslatedLyrics.map((line, index) => {
-                                    if (index < 3 || !line.time) return; // Skip metadata
-
                                     const isHighlighted = convertTimeStringToMilliseconds(line.time) < currentTime;
-                                    let isCurrent = false;
-                                    if (lyrics.lyrics[index + 1] && lyrics.lyrics[index + 1].time) {
-                                        console.debug("Next Time", lyrics.lyrics[index + 1].time)
-                                        const nextTime = convertTimeStringToMilliseconds(lyrics.lyrics[index + 1].time);
-                                        isCurrent = convertTimeStringToMilliseconds(line.time) <= currentTime && nextTime >= currentTime;
-                                    }
                                     return (
 
-                                        <Text color= {isCurrent ? "green" : isHighlighted ? "green.500" : "white"}  key={index} >
-                                            {convertTimeStringToMilliseconds(line.time) < currentTime ? <span>&#8226;</span> : null}
+                                        <Text ref={currentTranslatedLyricState.currentIndex === index ? currentTranslatedLyricRef : null}
+                                              color={currentTranslatedLyricState.currentIndex === index ? "green.500" : isHighlighted ? "green.700" : "white"}
+                                              key={index}>
+                                            {convertTimeStringToMilliseconds(line.time) < currentTime ?
+                                                <span>&#8226;</span> : null}
                                             {line.lyric}
                                         </Text>
                                     )
