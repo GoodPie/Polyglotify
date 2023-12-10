@@ -22,7 +22,7 @@ const Playback = ({playBackState, onPlayToggle, songName, artist, duration, curr
 
     return (
 
-        <Box position={"absolute"} bottom={0} left={0} bg={"black"} w={"100%"} height={"75px"} p={4}>
+        <Box position={"absolute"} bottom={0} left={0} bg={"black"} w={"100%"} height={"75px"} pb={8} px={4}>
 
             <Flex justifyContent={"center"} alignItems={"center"} w={"100%"} h={"100%"}>
 
@@ -38,6 +38,7 @@ const Playback = ({playBackState, onPlayToggle, songName, artist, duration, curr
                     </VStack>
                 </Box>
 
+                <VStack>
                 <Box>
 
                     <IconButton _hover={{background: "none", fontSize: ICON_FONT_SIZE.hover}} colorScheme={"green"}
@@ -51,7 +52,7 @@ const Playback = ({playBackState, onPlayToggle, songName, artist, duration, curr
                                 variant={"ghost"} fontSize={ICON_FONT_SIZE.default} className='playButton'
                                 icon={<BiSkipNext/>} aria-label={"Next Button"}/>
                 </Box>
-                <Box w={'20%'}>
+                <Box w={"300px"}>
                     <div className='progress-area'>
                             <div className='progress-bar' style={{width:`${currentTime / (duration*1000) * 100}%`}}>
                                 <span></span>
@@ -62,6 +63,7 @@ const Playback = ({playBackState, onPlayToggle, songName, artist, duration, curr
                             </div>
                     </div>
                 </Box>
+                </VStack>
 
                 <HStack ms={"auto"}>
                     <BiVolumeFull color={"white"}/>

@@ -53,6 +53,14 @@ export const Home = () => {
 
     const [music, setMusic] = useState({});
 
+    const [currentTime, setCurrentTime] = useState(0);
+
+    const timeUpdate = useCallback((event) => {
+        const milliSeconds = event.target.currentTime * 1000;
+        setCurrentTime(milliSeconds);
+    }, [setCurrentTime]);
+
+
     const [lyrics, setLyrics] = useState({
         lyrics: "",
         song: "",
@@ -154,7 +162,7 @@ export const Home = () => {
                     </Center> :
                     <>
                         {/* <audio src={lyrics.songDirectory}/> */}
-                        <LyricDisplay lyrics={lyrics}/>
+                        <LyricDisplay currentTime={currentTime} lyrics={lyrics}/>
                         <Playback songName={lyrics.song} artist={lyrics.artist} playBackState={playBackDetails}
                                   onPlayToggle={togglePlayBack} duration={audio.duration} currentTime={currTime}/>
                     </>
