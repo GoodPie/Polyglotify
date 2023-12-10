@@ -10,7 +10,15 @@ const ICON_FONT_SIZE = {
     "hover": "3.2rem"
 }
 
-const Playback = ({playBackState, onPlayToggle, songName, artist, duration, currentTime, progress}) => {
+const Playback = ({playBackState, onPlayToggle, songName, artist, duration, currentTime}) => {
+
+    const calculateTime = (milliseconds) => {
+        const mins = Math.floor((milliseconds/1000) / 60);
+        const returnedMins = mins < 10 ? `0${mins}` : `${mins}`;
+        const secs = Math.floor((milliseconds/1000) % 60);
+        const returnedSecs = secs < 10 ? `0${secs}` : `${secs}`;
+        return `${returnedMins}:${returnedSecs}`;
+    }
 
     return (
 
@@ -49,8 +57,8 @@ const Playback = ({playBackState, onPlayToggle, songName, artist, duration, curr
                                 <span></span>
                             </div>
                             <div className='song-timer'>
-                                <span className='current-time'>{currentTime}</span>
-                                <span className='current-duration'>{duration}</span>
+                                <span className='current-time'>{calculateTime(currentTime)}</span>
+                                <span className='current-duration'>{calculateTime(duration)}</span>
                             </div>
                     </div>
                 </Box>

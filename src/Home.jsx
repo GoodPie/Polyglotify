@@ -1,6 +1,6 @@
 import {useAuthState} from "react-firebase-hooks/auth";
 import {auth, db} from "./firebase.js";
-import {useEffect, useState} from "react";
+import {useEffect, useState, useCallback} from "react";
 import {LyricDisplay, Playback} from "./components/index.jsx";
 import {useNavigate} from "react-router-dom";
 import {Box, Center, CircularProgress} from "@chakra-ui/react";
@@ -49,6 +49,7 @@ export const Home = () => {
     const [audio, setAudio] = useState(new Audio());
     const [user, loading] = useAuthState(auth);
     const [loadingSongs, setLoadingSongs] = useState(true);
+    const [currTime, setcurrTime] = useState(0);
 
     const [music, setMusic] = useState({});
 
@@ -97,6 +98,7 @@ export const Home = () => {
                     });
 
                     const newAudio = new Audio(`/songs/${firstSong.song_id}`);
+                    newAudio.ontimeupdate = timeUpdate;
                     setAudio(newAudio);
                 })
                 .finally(() => setLoadingSongs(false));
@@ -136,14 +138,11 @@ export const Home = () => {
         if (!user && !loading) return navigate("/Login");
     }, [loading, navigate, user]);
 
-    const calculateTime = (seconds) => {
-        const mins = Math.floor(seconds / 60);
-        const returnedMins = mins < 10 ? `0${mins}` : `${mins}`;
-        const secs = Math.floor(seconds % 60);
-        const returnedSecs = secs < 10 ? `0${secs}` : `${secs}`;
-        return `${returnedMins}:${returnedSecs}`;
-    }
-
+    const timeUpdate = useCallback((event) => {
+        const milliSeconds = event.target.currentTime * 1000;
+        setcurrTime(milliSeconds);
+    }, [setcurrTime]);
+    
 
     return (
 
@@ -157,7 +156,7 @@ export const Home = () => {
                         {/* <audio src={lyrics.songDirectory}/> */}
                         <LyricDisplay lyrics={lyrics}/>
                         <Playback songName={lyrics.song} artist={lyrics.artist} playBackState={playBackDetails}
-                                  onPlayToggle={togglePlayBack} duration={calculateTime(audio.duration)} currentTime={calculateTime(audio.currentTime)}/>
+                                  onPlayToggle={togglePlayBack} duration={audio.duration} currentTime={currTime}/>
                     </>
                 }
             </Box>
