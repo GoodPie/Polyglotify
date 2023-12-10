@@ -167,6 +167,7 @@ const LyricDisplay = ({lyrics, onLyricLanguageChange, currentTime}) => {
                                     <option value="es">Spanish</option>
                                     <option value="it">Italian</option>
                                     <option value="ar">Arabic</option>
+                                    <option value="jp">Japanese</option>
                                 </Select>
                             </Box>
 
