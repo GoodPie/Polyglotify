@@ -146,10 +146,7 @@ export const Home = () => {
         if (!user && !loading) return navigate("/Login");
     }, [loading, navigate, user]);
 
-    const timeUpdate = useCallback((event) => {
-        const milliSeconds = event.target.currentTime * 1000;
-        setcurrTime(milliSeconds);
-    }, [setcurrTime]);
+
     
 
     return (
